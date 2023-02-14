@@ -7,22 +7,20 @@ import User from "./User.jsx";
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     onUserStateChange((user) => {
+      console.log(user);
       setUser(user);
     });
   }, []);
   const handleLogin = () => {
-    login().then((user) => {
-      setUser(user);
-    });
+    login();
   };
   const handleLogout = () => {
-    logout().then((result) => {
-      if (result === true) setUser(null);
-      else throw new Error(`로그아웃 실패 =>  ${result}`);
-    });
+    logout();
   };
+  console.log("page refresh");
 
   return (
     <header className="flex justify-between border-b-4  border-gray-300 pb-2">
