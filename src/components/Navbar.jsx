@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
 import { login, logout, onUserStateChange } from "../api.js/firbase.js";
+import User from "./User.jsx";
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
   useEffect(() => {
     onUserStateChange((user) => {
-      console.log(user);
       setUser(user);
     });
-  });
+  }, []);
   const handleLogin = () => {
     login().then((user) => {
       setUser(user);
@@ -36,6 +36,7 @@ export default function Navbar() {
         <Link to="/products/new" className="text-2xl">
           <BsFillPencilFill />
         </Link>
+        {user && <User user={user} />}
         {!user && <button onClick={handleLogin}>Login</button>}
         {user && <button onClick={handleLogout}>Logout</button>}
       </nav>
